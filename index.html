@@ -1,128 +1,49 @@
 <!doctype html>
-<html lang="de">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#263d32">
-<title>Mein Helfer</title>
-<link rel="manifest" href="manifest.webmanifest">
+<html lang="de"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#263d32"><title>Mein Helfer</title><link rel="manifest" href="manifest.webmanifest">
 <style>
-:root{--green:#263d32;--green2:#42634c;--cream:#f7f5ee;--paper:#fffefa;--ink:#253128;--muted:#6c766d;--line:#e5e7df;--gold:#a4773d;--rose:#a66f85}
-*{box-sizing:border-box}body{margin:0;background:var(--cream);color:var(--ink);font:16px system-ui,-apple-system,Segoe UI,sans-serif}
-header{background:var(--green);color:white;padding:22px 18px 20px;border-radius:0 0 24px 24px}
-.top{display:flex;justify-content:space-between;align-items:center}.brand{font-size:22px;font-weight:750}.sub{color:#dce7dc;font-size:13px;margin-top:4px}
-main{max-width:760px;margin:auto;padding:16px 14px 90px}
-.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:-2px}
-.stat,.panel,.entry{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px}
-.stat small{color:var(--muted)}.stat strong{display:block;font-size:27px;color:var(--green);margin-top:3px}
-h2{font-size:18px;margin:22px 2px 10px}h3{font-size:16px;margin:0 0 6px}
-.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-button,.button{border:0;border-radius:13px;padding:13px 14px;font:600 15px system-ui;cursor:pointer}
-.primary{background:var(--green);color:white}.secondary{background:#e7eee4;color:var(--green)}.quiet{background:#f0eee7;color:var(--ink)}
-.tabs{display:flex;gap:7px;overflow:auto;margin:16px 0 10px}
-.tab{white-space:nowrap;background:#ecebe4;color:var(--muted);padding:10px 13px;border-radius:999px;font-size:14px}
-.tab.active{background:var(--green);color:white}
-input,select,textarea{width:100%;border:1px solid #d9ded5;border-radius:11px;padding:12px;font:15px system-ui;background:white;color:var(--ink);margin:5px 0 12px}
-label{font-size:13px;color:var(--muted);font-weight:650}
-.entry{display:flex;gap:12px;align-items:flex-start;margin:8px 0}
-.emoji{width:42px;height:42px;border-radius:12px;background:#edf1e8;display:grid;place-items:center;font-size:22px;flex:none}
-.entry .details{flex:1;min-width:0}.entry p{margin:3px 0;color:var(--muted);font-size:13px;overflow-wrap:anywhere}
-.entry .tools{display:flex;gap:6px}.mini{padding:7px 9px;background:#f0eee7;font-size:12px}
-.hidden{display:none!important}.empty{text-align:center;color:var(--muted);padding:22px 10px}
-.row{display:flex;gap:8px}.row>*{flex:1}
-footer{position:fixed;bottom:0;left:0;right:0;background:#fffefaed;backdrop-filter:blur(10px);border-top:1px solid var(--line);padding:10px max(14px,calc((100vw - 730px)/2));display:flex;gap:8px;justify-content:space-around}
-footer button{background:transparent;color:var(--muted);font-size:13px;padding:8px}
-footer button.active{color:var(--green);background:#edf1e8}
-.note{font-size:12px;color:var(--muted);line-height:1.45}.pill{font-size:11px;background:#f4ead8;color:#805d2e;padding:4px 8px;border-radius:999px}
-</style>
-</head>
-<body>
-<header><div class="top"><div><div class="brand">🌿 Mein Helfer</div><div class="sub">Alles wiederfinden. Nichts vergessen.</div></div><div style="font-size:28px">⌂</div></div></header>
+:root{--g:#263d32;--g2:#42634c;--bg:#f7f5ee;--paper:#fffefa;--ink:#253128;--muted:#6c766d;--line:#e5e7df}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px system-ui,sans-serif}header{background:var(--g);color:white;padding:22px 18px;border-radius:0 0 24px 24px}.brand{font-size:23px;font-weight:750}.sub{color:#dce7dc;font-size:13px}main{max-width:760px;margin:auto;padding:16px 14px 90px}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat,.panel,.entry{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:14px}.stat small,.muted{color:var(--muted)}.stat strong{display:block;font-size:27px;color:var(--g)}h2{font-size:18px;margin:22px 2px 10px}h3{font-size:16px;margin:0 0 5px}.actions,.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}button{border:0;border-radius:12px;padding:12px;font:600 14px system-ui;cursor:pointer}.primary{background:var(--g);color:white}.secondary{background:#e7eee4;color:var(--g)}.quiet{background:#f0eee7;color:var(--ink)}input,select,textarea{width:100%;border:1px solid #d9ded5;border-radius:11px;padding:12px;font:15px system-ui;background:white;margin:5px 0 12px}label{font-size:13px;color:var(--muted);font-weight:650}.entry{display:flex;gap:11px;margin:8px 0}.emoji{width:42px;height:42px;border-radius:12px;background:#edf1e8;display:grid;place-items:center;font-size:22px;flex:none}.details{flex:1;min-width:0}.details p{margin:3px 0;color:var(--muted);font-size:13px}.tools{display:flex;gap:6px;flex-wrap:wrap;margin-top:7px}.mini{padding:7px 9px;background:#f0eee7;font-size:12px}.hidden{display:none!important}.empty{text-align:center;color:var(--muted);padding:20px 8px}.row{display:flex;gap:8px}.row>*{flex:1}.tabs{display:flex;gap:7px;margin:12px 0}.tab{background:#ecebe4;color:var(--muted);border-radius:99px}.tab.active{background:var(--g);color:white}.pill{font-size:11px;background:#f4ead8;color:#805d2e;padding:4px 8px;border-radius:99px}.note{font-size:12px;color:var(--muted);line-height:1.45}.preset{background:#f2f5ee;border:1px solid #e0e8dc;border-radius:13px;padding:12px;margin:8px 0}.preset p{font-size:13px;color:var(--muted);margin:4px 0 9px}footer{position:fixed;bottom:0;left:0;right:0;background:#fffefaed;backdrop-filter:blur(10px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:9px}footer button{background:transparent;color:var(--muted)}footer button.active{background:#edf1e8;color:var(--g)}
+</style></head><body>
+<header><div class="brand">🌿 Mein Helfer</div><div class="sub">Alles wiederfinden. Nichts vergessen.</div></header>
 <main>
-<section id="home">
- <div class="stats">
-  <div class="stat"><small>Gespeicherte Dinge</small><strong id="itemCount">0</strong></div>
-  <div class="stat"><small>Anstehende Erinnerungen</small><strong id="dueCount">0</strong></div>
- </div>
- <div class="actions">
-  <button class="primary" onclick="show('items');openItem()">＋ Gegenstand speichern</button>
-  <button class="secondary" onclick="show('reminders');openReminder()">＋ Erinnerung anlegen</button>
- </div>
- <h2>Als Nächstes</h2><div id="upcoming"></div>
- <h2>Zuletzt gespeichert</h2><div id="recent"></div>
-</section>
-<section id="items" class="hidden">
- <h2>Meine aufbewahrten Dinge</h2>
- <input id="search" placeholder="🔎 Suchen: z. B. Bohrmaschine, Deko ..." oninput="renderItems()">
- <div class="row"><select id="filterCat" onchange="renderItems()"><option value="">Alle Kategorien</option><option>Deko</option><option>Werkzeug</option><option>Garten</option><option>Haushalt</option><option>Sonstiges</option></select><button class="primary" onclick="openItem()">＋ Neu</button></div>
- <div id="itemList"></div>
-</section>
-<section id="reminders" class="hidden">
- <h2>Meine Erinnerungen</h2>
- <button class="primary" style="width:100%" onclick="openReminder()">＋ Neue Erinnerung</button>
- <div class="tabs"><button class="tab active" id="rAll" onclick="setReminderFilter('all')">Alle</button><button class="tab" id="rOpen" onclick="setReminderFilter('open')">Offen</button><button class="tab" id="rDone" onclick="setReminderFilter('done')">Erledigt</button></div>
- <div id="reminderList"></div>
-</section>
-<section id="formItem" class="hidden">
- <h2 id="itemFormTitle">Gegenstand speichern</h2>
- <label>Name *</label><input id="iName" placeholder="z. B. Lichterkette">
- <label>Kategorie</label><select id="iCat"><option>Deko</option><option>Werkzeug</option><option>Garten</option><option>Haushalt</option><option>Sonstiges</option></select>
- <label>Wo liegt es?</label><input id="iPlace" placeholder="z. B. Dachboden, blaue Kiste">
- <label>Weitere Hinweise</label><textarea id="iNote" rows="3" placeholder="z. B. Kiste mit Weihnachtsdeko, ganz hinten links"></textarea>
- <div class="row"><button class="quiet" onclick="show('items')">Abbrechen</button><button class="primary" onclick="saveItem()">Speichern</button></div>
-</section>
-<section id="formReminder" class="hidden">
- <h2 id="remFormTitle">Erinnerung anlegen</h2>
- <label>Woran soll ich dich erinnern? *</label><input id="rTitle" placeholder="z. B. Ziergräser zurückschneiden">
- <label>Bereich</label><select id="rCat"><option>Garten</option><option>Haushalt</option><option>Wartung</option><option>Sonstiges</option></select>
- <label>Datum</label><input id="rDate" type="date">
- <label>Wiederholung</label><select id="rRepeat"><option value="none">Keine</option><option value="yearly">Jährlich</option><option value="monthly">Monatlich</option></select>
- <label>Notiz (optional)</label><textarea id="rNote" rows="2" placeholder="z. B. erst nach der Blüte schneiden"></textarea>
- <div class="row"><button class="quiet" onclick="show('reminders')">Abbrechen</button><button class="primary" onclick="saveReminder()">Speichern</button></div>
- <p class="note">Hinweis: Erinnerungen erscheinen hier und werden beim Öffnen der App geprüft. Zuverlässige Benachrichtigungen zu festgelegten Uhrzeiten im Hintergrund benötigen später eine native Android-App oder einen geeigneten Benachrichtigungsdienst.</p>
-</section>
-<section id="settings" class="hidden">
- <h2>Daten & Einstellungen</h2>
- <div class="panel">
-  <h3>Deine Daten sichern</h3><p class="note">Alles wird lokal in diesem Browser auf diesem Handy gespeichert. Exportiere gelegentlich eine Sicherung, besonders vor einem Handywechsel.</p>
-  <button class="primary" style="width:100%;margin:8px 0" onclick="exportData()">Sicherung herunterladen</button>
-  <label>Sicherung wiederherstellen</label><input type="file" id="importFile" accept="application/json" onchange="importData(event)">
- </div>
- <div class="panel" style="margin-top:12px"><h3>Benachrichtigungen</h3><p class="note">Wenn dein Browser Benachrichtigungen unterstützt, kannst du Hinweise erlauben. Die App kann dich beim Öffnen auf fällige Aufgaben aufmerksam machen.</p><button class="secondary" onclick="enableNotifications()">Benachrichtigungen erlauben</button></div>
- <p class="note" style="margin:16px 4px">Mein Helfer · lokale Speicherung · keine Anmeldung · keine Cloud</p>
-</section>
-</main>
-<footer>
- <button id="navHome" class="active" onclick="show('home')">⌂<br>Start</button>
- <button id="navItems" onclick="show('items')">▣<br>Aufbewahrung</button>
- <button id="navReminders" onclick="show('reminders')">◷<br>Erinnerungen</button>
- <button id="navSettings" onclick="show('settings')">⚙<br>Daten</button>
-</footer>
+<section id="home"><div class="stats"><div class="stat"><small>Gespeicherte Dinge</small><strong id="itemCount">0</strong></div><div class="stat"><small>Offene Erinnerungen</small><strong id="dueCount">0</strong></div></div><div class="actions"><button class="primary" onclick="openItem()">＋ Gegenstand speichern</button><button class="secondary" onclick="openReminder()">＋ Erinnerung anlegen</button></div><h2>Als Nächstes</h2><div id="upcoming"></div><h2>Zuletzt gespeichert</h2><div id="recent"></div></section>
+<section id="items" class="hidden"><h2>Meine aufbewahrten Dinge</h2><input id="search" placeholder="🔎 Suchen ..." oninput="renderItems()"><div class="row"><select id="filterCat" onchange="renderItems()"><option value="">Alle Kategorien</option><option>Deko</option><option>Werkzeug</option><option>Garten</option><option>Haushalt</option><option>Sonstiges</option></select><button class="primary" onclick="openItem()">＋ Neu</button></div><div id="itemList"></div></section>
+<section id="reminders" class="hidden"><h2>Gartenkalender & Erinnerungen</h2><div class="panel"><h3>🌱 Vorschläge für den Garten</h3><p class="note">Wähle eine Aufgabe aus. Das Datum wird auf den nächsten passenden Zeitraum gesetzt und jährlich wiederholt. Die Zeiten sind grobe Richtwerte für Deutschland – Pflanzenart, Wetter und örtliche Bedingungen beachten.</p><div id="gardenPresets"></div></div><button class="primary" style="width:100%;margin-top:12px" onclick="openReminder()">＋ Eigene Erinnerung</button><div class="tabs"><button class="tab active" id="rAll" onclick="setFilter('all')">Alle</button><button class="tab" id="rOpen" onclick="setFilter('open')">Offen</button><button class="tab" id="rDone" onclick="setFilter('done')">Erledigt</button></div><div id="reminderList"></div></section>
+<section id="formItem" class="hidden"><h2 id="itemTitle">Gegenstand speichern</h2><label>Name *</label><input id="iName" placeholder="z. B. Lichterkette"><label>Kategorie</label><select id="iCat"><option>Deko</option><option>Werkzeug</option><option>Garten</option><option>Haushalt</option><option>Sonstiges</option></select><label>Wo liegt es?</label><input id="iPlace" placeholder="z. B. Dachboden, blaue Kiste"><label>Hinweise</label><textarea id="iNote" rows="3"></textarea><div class="row"><button class="quiet" onclick="show('items')">Abbrechen</button><button class="primary" onclick="saveItem()">Speichern</button></div></section>
+<section id="formReminder" class="hidden"><h2 id="remTitle">Erinnerung anlegen</h2><label>Woran soll ich dich erinnern? *</label><input id="rName" placeholder="z. B. Ziergräser zurückschneiden"><label>Bereich</label><select id="rCat"><option>Garten</option><option>Haushalt</option><option>Wartung</option><option>Sonstiges</option></select><label>Datum</label><input id="rDate" type="date"><label>Wiederholung</label><select id="rRepeat"><option value="none">Keine</option><option value="yearly">Jährlich</option><option value="monthly">Monatlich</option></select><label>Notiz</label><textarea id="rNote" rows="2"></textarea><div class="row"><button class="quiet" onclick="show('reminders')">Abbrechen</button><button class="primary" onclick="saveReminder()">Speichern</button></div><p class="note">Hinweis: Erinnerungen werden beim Öffnen der App geprüft. Zuverlässige Benachrichtigungen zu festen Uhrzeiten im Hintergrund benötigen zusätzliche Android-/Benachrichtigungsfunktionen.</p></section>
+<section id="settings" class="hidden"><h2>Daten & Einstellungen</h2><div class="panel"><h3>Sicherung erstellen</h3><p class="note">Deine Daten liegen nur in diesem Browser auf diesem Handy. Exportiere gelegentlich eine Sicherung.</p><button class="primary" style="width:100%" onclick="backup()">Sicherung herunterladen</button><label>Wiederherstellen</label><input type="file" accept="application/json" onchange="restore(event)"></div></section>
+</main><footer><button id="navHome" class="active" onclick="show('home')">⌂<br>Start</button><button id="navItems" onclick="show('items')">▣<br>Aufbewahrung</button><button id="navReminders" onclick="show('reminders')">◷<br>Garten & Termine</button><button id="navSettings" onclick="show('settings')">⚙<br>Daten</button></footer>
 <script>
-const KEY='mein-helfer-v1';
-let data=load(), editingItem=null, editingReminder=null, reminderFilter='all';
-function load(){try{return JSON.parse(localStorage.getItem(KEY))||{items:[],reminders:[]}}catch(e){return {items:[],reminders:[]}}}
-function persist(){localStorage.setItem(KEY,JSON.stringify(data));render()}
+const KEY='mein-helfer-v1';let data;try{data=JSON.parse(localStorage.getItem(KEY))||{items:[],reminders:[]}}catch(e){data={items:[],reminders:[]}}let editItem=null,editRem=null,filter='all';
+const presets=[
+{title:'Ziergräser zurückschneiden',month:2,day:20,note:'Viele sommergrüne Ziergräser werden im Spätwinter vor dem Neuaustrieb zurückgeschnitten. Immergrüne Gräser nur ausputzen.'},
+{title:'Rosen zurückschneiden',month:3,day:20,note:'Zeitpunkt und Schnitt richten sich nach Rosengruppe und Austrieb. Nicht alle Rosen gleich schneiden.'},
+{title:'Lavendel zurückschneiden',month:3,day:25,note:'Im Frühjahr maßvoll in den grünen, belaubten Bereich schneiden; nicht tief ins alte Holz.'},
+{title:'Staudenbeete kontrollieren',month:3,day:15,note:'Alte Pflanzenteile entfernen, Austriebe prüfen und Beete vorsichtig auflockern.'},
+{title:'Kübelpflanzen auf Überwinterung prüfen',month:9,day:20,note:'Frostempfindliche Pflanzen rechtzeitig je nach Wetter und Pflanzenart schützen oder einräumen.'},
+{title:'Frühjahrsdüngung prüfen',month:3,day:25,note:'Düngebedarf je nach Pflanze und Boden prüfen; Packungsangaben beachten.'},
+{title:'Hecken und Gehölze kontrollieren',month:2,day:15,note:'Vor Schnittarbeiten prüfen, ob Vögel brüten. Starke Rückschnitte sind in Deutschland vom 1. März bis 30. September grundsätzlich eingeschränkt; örtliche Regeln beachten.'}
+];
+function save(){localStorage.setItem(KEY,JSON.stringify(data));render()}
 function esc(s=''){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
-function dateText(d){if(!d)return 'Ohne Datum';return new Date(d+'T12:00:00').toLocaleDateString('de-DE',{day:'2-digit',month:'long',year:'numeric'})}
-function show(id){document.querySelectorAll('main>section').forEach(x=>x.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('footer button').forEach(x=>x.classList.remove('active'));let n={home:'navHome',items:'navItems',reminders:'navReminders',settings:'navSettings'}[id];if(n)document.getElementById(n).classList.add('active');render()}
-function openItem(id=null){editingItem=id;let x=data.items.find(a=>a.id===id)||{};document.getElementById('itemFormTitle').textContent=id?'Gegenstand bearbeiten':'Gegenstand speichern';iName.value=x.name||'';iCat.value=x.cat||'Deko';iPlace.value=x.place||'';iNote.value=x.note||'';show('formItem')}
-function saveItem(){let name=iName.value.trim();if(!name){alert('Bitte gib einen Namen ein.');return}let obj={id:editingItem||crypto.randomUUID(),name,cat:iCat.value,place:iPlace.value.trim(),note:iNote.value.trim(),updated:Date.now()};if(editingItem)data.items=data.items.map(x=>x.id===editingItem?obj:x);else data.items.unshift(obj);persist();show('items')}
-function deleteItem(id){if(confirm('Diesen Gegenstand wirklich löschen?')){data.items=data.items.filter(x=>x.id!==id);persist()}}
-function renderItems(){let q=(search?.value||'').toLowerCase(),cat=filterCat?.value||'';let arr=data.items.filter(x=>(!cat||x.cat===cat)&&[x.name,x.place,x.note,x.cat].join(' ').toLowerCase().includes(q));itemList.innerHTML=arr.length?arr.map(x=>`<div class="entry"><div class="emoji">${x.cat==='Werkzeug'?'🛠️':x.cat==='Garten'?'🌱':x.cat==='Deko'?'🏺':x.cat==='Haushalt'?'🏠':'📦'}</div><div class="details"><h3>${esc(x.name)}</h3><p>${esc(x.cat)} · ${esc(x.place||'Ort noch nicht eingetragen')}</p>${x.note?`<p>${esc(x.note)}</p>`:''}<div class="tools"><button class="mini" onclick="openItem('${x.id}')">Bearbeiten</button><button class="mini" onclick="deleteItem('${x.id}')">Löschen</button></div></div></div>`).join(''):'<div class="empty">Noch nichts gespeichert. Lege deinen ersten Gegenstand an.</div>'}
-function openReminder(id=null){editingReminder=id;let x=data.reminders.find(a=>a.id===id)||{};remFormTitle.textContent=id?'Erinnerung bearbeiten':'Erinnerung anlegen';rTitle.value=x.title||'';rCat.value=x.cat||'Garten';rDate.value=x.date||'';rRepeat.value=x.repeat||'none';rNote.value=x.note||'';show('formReminder')}
-function saveReminder(){let title=rTitle.value.trim();if(!title){alert('Bitte gib einen Titel ein.');return}if(!rDate.value){alert('Bitte wähle ein Datum.');return}let obj={id:editingReminder||crypto.randomUUID(),title,cat:rCat.value,date:rDate.value,repeat:rRepeat.value,note:rNote.value.trim(),done:false};if(editingReminder)data.reminders=data.reminders.map(x=>x.id===editingReminder?{...x,...obj,done:x.done}:x);else data.reminders.push(obj);persist();show('reminders')}
-function dueDate(x){let d=new Date(x.date+'T12:00:00'),now=new Date();now.setHours(0,0,0,0);if(x.repeat==='yearly'){while(d<now)d.setFullYear(d.getFullYear()+1)}if(x.repeat==='monthly'){while(d<now)d.setMonth(d.getMonth()+1)}return d}
-function setReminderFilter(f){reminderFilter=f;['all','open','done'].forEach(x=>document.getElementById('r'+x[0].toUpperCase()+x.slice(1)).classList.toggle('active',x===f));renderReminders()}
-function toggleDone(id){let x=data.reminders.find(a=>a.id===id);if(x)x.done=!x.done;persist()}
-function deleteReminder(id){if(confirm('Diese Erinnerung wirklich löschen?')){data.reminders=data.reminders.filter(x=>x.id!==id);persist()}}
-function renderReminders(){let arr=[...data.reminders].filter(x=>reminderFilter==='all'||(reminderFilter==='done'?x.done:!x.done)).sort((a,b)=>dueDate(a)-dueDate(b));reminderList.innerHTML=arr.length?arr.map(x=>`<div class="entry"><div class="emoji">${x.cat==='Garten'?'🌷':'⏰'}</div><div class="details"><h3>${esc(x.title)} ${x.done?'<span class="pill">Erledigt</span>':''}</h3><p>${esc(x.cat)} · ${dateText(x.date)} · ${x.repeat==='yearly'?'Jährlich':x.repeat==='monthly'?'Monatlich':'Einmalig'}</p>${x.note?`<p>${esc(x.note)}</p>`:''}<div class="tools"><button class="mini" onclick="toggleDone('${x.id}')">${x.done?'Wieder öffnen':'Erledigt'}</button><button class="mini" onclick="openReminder('${x.id}')">Bearbeiten</button><button class="mini" onclick="deleteReminder('${x.id}')">Löschen</button></div></div></div>`).join(''):'<div class="empty">Hier ist noch nichts eingetragen.</div>'}
-function render(){itemCount.textContent=data.items.length;let open=data.reminders.filter(x=>!x.done);dueCount.textContent=open.length;let upcoming=[...open].sort((a,b)=>dueDate(a)-dueDate(b)).slice(0,4);document.getElementById('upcoming').innerHTML=upcoming.length?upcoming.map(x=>`<div class="entry"><div class="emoji">🌼</div><div class="details"><h3>${esc(x.title)}</h3><p>${dateText(x.date)} · ${x.repeat==='yearly'?'jährlich':x.repeat==='monthly'?'monatlich':'einmalig'}</p></div><span class="pill">${dueDate(x)<=new Date()?'Fällig':'Geplant'}</span></div>`).join(''):'<div class="empty">Keine offenen Erinnerungen. Du kannst neue Garten- oder Alltagstermine anlegen.</div>';document.getElementById('recent').innerHTML=data.items.slice(0,3).map(x=>`<div class="entry"><div class="emoji">📦</div><div class="details"><h3>${esc(x.name)}</h3><p>${esc(x.place||x.cat)}</p></div></div>`).join('')||'<div class="empty">Deine gespeicherten Dinge erscheinen hier.</div>';renderItems();renderReminders();checkDue()}
-function checkDue(){if(!('Notification'in window)||Notification.permission!=='granted')return;let today=new Date();today.setHours(23,59,59,999);data.reminders.filter(x=>!x.done&&dueDate(x)<=today).forEach(x=>{let k='notice-'+x.id+'-'+dueDate(x).toISOString().slice(0,10);if(!sessionStorage.getItem(k)){new Notification('Mein Helfer: '+x.title,{body:'Deine Erinnerung ist fällig.'});sessionStorage.setItem(k,'1')}})}
-function enableNotifications(){if(!('Notification'in window)){alert('Dieser Browser unterstützt keine Benachrichtigungen.');return}Notification.requestPermission().then(p=>{alert(p==='granted'?'Benachrichtigungen sind erlaubt.':'Benachrichtigungen wurden nicht erlaubt.');checkDue()})}
-function exportData(){let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mein-helfer-sicherung.json';a.click();URL.revokeObjectURL(a.href)}
-function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let v=JSON.parse(r.result);if(!Array.isArray(v.items)||!Array.isArray(v.reminders))throw 0;if(confirm('Vorhandene Daten durch die Sicherung ersetzen?')){data=v;persist();alert('Sicherung wurde übernommen.')}}catch(err){alert('Die Datei ist keine gültige Mein-Helfer-Sicherung.')}};r.readAsText(f)}
-if('serviceWorker'in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
-render();
-</script>
-</body></html>
+function show(id){document.querySelectorAll('main>section').forEach(s=>s.classList.add('hidden'));document.getElementById(id).classList.remove('hidden');document.querySelectorAll('footer button').forEach(b=>b.classList.remove('active'));let n={home:'navHome',items:'navItems',reminders:'navReminders',settings:'navSettings'}[id];if(n)document.getElementById(n).classList.add('active');render()}
+function dateLabel(s){return s?new Date(s+'T12:00:00').toLocaleDateString('de-DE',{day:'2-digit',month:'long',year:'numeric'}):'Ohne Datum'}
+function nextDate(month,day){let now=new Date(),y=now.getFullYear(),d=new Date(y,month,day);if(d<new Date(now.getFullYear(),now.getMonth(),now.getDate()))d=new Date(y+1,month,day);return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function addPreset(i){let p=presets[i],d=nextDate(p.month,p.day);data.reminders.push({id:crypto.randomUUID(),title:p.title,cat:'Garten',date:d,repeat:'yearly',note:p.note,done:false});save();alert('Garten-Erinnerung wurde hinzugefügt: '+p.title)}
+function renderPresets(){gardenPresets.innerHTML=presets.map((p,i)=>`<div class="preset"><h3>${esc(p.title)}</h3><p>${esc(p.note)}</p><button class="secondary" onclick="addPreset(${i})">＋ Als jährliche Erinnerung übernehmen</button></div>`).join('')}
+function openItem(id=null){editItem=id;let x=data.items.find(a=>a.id===id)||{};itemTitle.textContent=id?'Gegenstand bearbeiten':'Gegenstand speichern';iName.value=x.name||'';iCat.value=x.cat||'Deko';iPlace.value=x.place||'';iNote.value=x.note||'';show('formItem')}
+function saveItem(){if(!iName.value.trim())return alert('Bitte einen Namen eingeben.');let x={id:editItem||crypto.randomUUID(),name:iName.value.trim(),cat:iCat.value,place:iPlace.value.trim(),note:iNote.value.trim()};data.items=editItem?data.items.map(a=>a.id===editItem?x:a):[x,...data.items];save();show('items')}
+function delItem(id){if(confirm('Gegenstand löschen?')){data.items=data.items.filter(x=>x.id!==id);save()}}
+function renderItems(){let q=(search?.value||'').toLowerCase(),c=filterCat?.value||'',a=data.items.filter(x=>(!c||x.cat===c)&&[x.name,x.cat,x.place,x.note].join(' ').toLowerCase().includes(q));itemList.innerHTML=a.length?a.map(x=>`<div class="entry"><div class="emoji">📦</div><div class="details"><h3>${esc(x.name)}</h3><p>${esc(x.cat)} · ${esc(x.place||'Ort fehlt')}</p><p>${esc(x.note||'')}</p><div class="tools"><button class="mini" onclick="openItem('${x.id}')">Bearbeiten</button><button class="mini" onclick="delItem('${x.id}')">Löschen</button></div></div></div>`).join(''):'<div class="empty">Noch keine Gegenstände gespeichert.</div>'}
+function openReminder(id=null){editRem=id;let x=data.reminders.find(a=>a.id===id)||{};remTitle.textContent=id?'Erinnerung bearbeiten':'Erinnerung anlegen';rName.value=x.title||'';rCat.value=x.cat||'Garten';rDate.value=x.date||'';rRepeat.value=x.repeat||'none';rNote.value=x.note||'';show('formReminder')}
+function saveReminder(){if(!rName.value.trim()||!rDate.value)return alert('Bitte Titel und Datum ausfüllen.');let x={id:editRem||crypto.randomUUID(),title:rName.value.trim(),cat:rCat.value,date:rDate.value,repeat:rRepeat.value,note:rNote.value.trim(),done:false};data.reminders=editRem?data.reminders.map(a=>a.id===editRem?{...x,done:a.done}:a):[...data.reminders,x];save();show('reminders')}
+function actualDate(x){let d=new Date(x.date+'T12:00:00'),now=new Date();now.setHours(0,0,0,0);if(x.repeat==='yearly')while(d<now)d.setFullYear(d.getFullYear()+1);if(x.repeat==='monthly')while(d<now)d.setMonth(d.getMonth()+1);return d}
+function setFilter(f){filter=f;['all','open','done'].forEach(k=>document.getElementById('r'+k[0].toUpperCase()+k.slice(1)).classList.toggle('active',k===f));renderReminders()}
+function toggle(id){let x=data.reminders.find(a=>a.id===id);x.done=!x.done;save()}
+function delRem(id){if(confirm('Erinnerung löschen?')){data.reminders=data.reminders.filter(x=>x.id!==id);save()}}
+function renderReminders(){let a=data.reminders.filter(x=>filter==='all'||(filter==='done'?x.done:!x.done)).sort((x,y)=>actualDate(x)-actualDate(y));reminderList.innerHTML=a.length?a.map(x=>`<div class="entry"><div class="emoji">🌷</div><div class="details"><h3>${esc(x.title)} ${x.done?'<span class="pill">Erledigt</span>':''}</h3><p>${dateLabel(x.date)} · ${x.repeat==='yearly'?'jährlich':x.repeat==='monthly'?'monatlich':'einmalig'}</p><p>${esc(x.note||'')}</p><div class="tools"><button class="mini" onclick="toggle('${x.id}')">${x.done?'Wieder öffnen':'Erledigt'}</button><button class="mini" onclick="openReminder('${x.id}')">Bearbeiten</button><button class="mini" onclick="delRem('${x.id}')">Löschen</button></div></div></div>`).join(''):'<div class="empty">Keine Erinnerungen in dieser Ansicht.</div>'}
+function render(){itemCount.textContent=data.items.length;dueCount.textContent=data.reminders.filter(x=>!x.done).length;let a=data.reminders.filter(x=>!x.done).sort((x,y)=>actualDate(x)-actualDate(y)).slice(0,4);upcoming.innerHTML=a.length?a.map(x=>`<div class="entry"><div class="emoji">🌼</div><div class="details"><h3>${esc(x.title)}</h3><p>${dateLabel(x.date)}</p></div></div>`).join(''):'<div class="empty">Noch keine anstehenden Aufgaben.</div>';recent.innerHTML=data.items.slice(0,3).map(x=>`<div class="entry"><div class="emoji">📦</div><div class="details"><h3>${esc(x.name)}</h3><p>${esc(x.place||x.cat)}</p></div></div>`).join('')||'<div class="empty">Deine Gegenstände erscheinen hier.</div>';renderItems();renderReminders();renderPresets()}
+function backup(){let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));a.href=u;a.download='mein-helfer-sicherung.json';a.click();URL.revokeObjectURL(u)}
+function restore(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let v=JSON.parse(r.result);if(!Array.isArray(v.items)||!Array.isArray(v.reminders))throw 0;if(confirm('Vorhandene Daten ersetzen?')){data=v;save();alert('Sicherung wiederhergestellt.')}}catch(_){alert('Ungültige Sicherungsdatei.')}};r.readAsText(f)}
+if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});render();
+</script></body></html>
