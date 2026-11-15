@@ -1,4 +1,46 @@
-const C='mein-helfer-cache-v6';
-self.addEventListener('install',e=>e.waitUntil(caches.open(C).then(c=>c.addAll(['./','./index.html','./manifest.webmanifest','./icon.svg']))));
-self.addEventListener('activate',e=>e.waitUntil(caches.keys().then(a=>Promise.all(a.filter(x=>x.startsWith('mein-helfer-cache-')&&x!==C).map(x=>caches.delete(x))))));
-self.addEventListener('fetch',e=>{if(e.request.method==='GET')e.respondWith(fetch(e.request).then(r=>{let q=r.clone();caches.open(C).then(c=>c.put(e.request,q));return r}).catch(()=>caches.match(e.request).then(r=>r||caches.match('./index.html'))))});
+const CACHE = 'mein-helfer-cache-v7';
+
+self.addEventListener('install', event => {
+  event.waitUntil(
+    caches.open(CACHE).then(cache =>
+      cache.addAll([
+        './',
+        './index.html',
+        './manifest.webmanifest',
+        './icon.svg'
+      ])
+    )
+  );
+  self.skipWaiting();
+});
+
+self.addEventListener('activate', event => {
+  event.waitUntil(
+    caches.keys().then(names =>
+      Promise.all(
+        names
+          .filter(name => name.startsWith('mein-helfer-cache-') && name !== CACHE)
+          .map(name => caches.delete(name))
+      )
+    )
+  );
+  self.clients.claim();
+});
+
+self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+
+  event.respondWith(
+    fetch(event.request)
+      .then(response => {
+        const copy = response.clone();
+        caches.open(CACHE).then(cache => cache.put(event.request, copy));
+        return response;
+      })
+      .catch(() =>
+        caches.match(event.request).then(cached =>
+          cached || caches.match('./index.html')
+        )
+      )
+  );
+});
