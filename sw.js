@@ -1,16 +1,13 @@
-const CACHE = 'mein-helfer-cache-v7';
+const CACHE = 'mein-helfer-cache-v8';
+const APP_FILES = [
+  './',
+  './index.html',
+  './manifest.webmanifest',
+  './icon.svg'
+];
 
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE).then(cache =>
-      cache.addAll([
-        './',
-        './index.html',
-        './manifest.webmanifest',
-        './icon.svg'
-      ])
-    )
-  );
+  event.waitUntil(caches.open(CACHE).then(cache => cache.addAll(APP_FILES)));
   self.skipWaiting();
 });
 
@@ -22,24 +19,28 @@ self.addEventListener('activate', event => {
           .filter(name => name.startsWith('mein-helfer-cache-') && name !== CACHE)
           .map(name => caches.delete(name))
       )
-    )
+    ).then(() => self.clients.claim())
   );
-  self.clients.claim();
 });
 
 self.addEventListener('fetch', event => {
-  if (event.request.method !== 'GET') return;
+  const request = event.request;
+  const url = new URL(request.url);
+
+  if (request.method !== 'GET' || url.origin !== self.location.origin) return;
 
   event.respondWith(
-    fetch(event.request)
+    fetch(request)
       .then(response => {
-        const copy = response.clone();
-        caches.open(CACHE).then(cache => cache.put(event.request, copy));
+        if (response && response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE).then(cache => cache.put(request, copy));
+        }
         return response;
       })
       .catch(() =>
-        caches.match(event.request).then(cached =>
-          cached || caches.match('./index.html')
+        caches.match(request).then(cached =>
+          cached || (request.mode === 'navigate' ? caches.match('./index.html') : undefined)
         )
       )
   );

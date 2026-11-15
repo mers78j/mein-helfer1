@@ -103,7 +103,31 @@ function backup(){let a=document.createElement('a'),u=URL.createObjectURL(new Bl
 function restore(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let v=JSON.parse(r.result);if(!Array.isArray(v.items)||!Array.isArray(v.reminders))throw 0;v.items=v.items.map(x=>({...x,manuals:Array.isArray(x.manuals)?x.manuals:[],invoices:Array.isArray(x.invoices)?x.invoices:[]}));v.devices=Array.isArray(v.devices)?v.devices:[];v.shortcuts=Array.isArray(v.shortcuts)?v.shortcuts:[];v.history=Array.isArray(v.history)?v.history:[];if(confirm('Vorhandene Daten ersetzen?')){data=v;save();alert('Sicherung wiederhergestellt.')}}catch(_){alert('Ungültige Sicherungsdatei.')}e.target.value=''};r.readAsText(f)}
 function toggleTheme(){document.body.classList.toggle('dark');localStorage.setItem(THEME_KEY,document.body.classList.contains('dark')?'dark':'light');render()}
 if(localStorage.getItem(THEME_KEY)==='dark')document.body.classList.add('dark');
-if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+// Automatische App-Updates: beim Laden und beim Zurückkehren zur App nachsehen.
+if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {
+  const hadController = !!navigator.serviceWorker.controller;
+  let reloadingForUpdate = false;
+
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    // Beim allerersten Installieren nicht neu laden; nur bei einem echten Update.
+    if (hadController && !reloadingForUpdate) {
+      reloadingForUpdate = true;
+      location.reload();
+    }
+  });
+
+  navigator.serviceWorker.register('./sw.js', { updateViaCache: 'none' })
+    .then(registration => {
+      registration.update().catch(() => {});
+      window.addEventListener('focus', () => registration.update().catch(() => {}));
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'visible') {
+          registration.update().catch(() => {});
+        }
+      });
+    })
+    .catch(() => {});
+}
 render();
 const params=new URLSearchParams(location.search),scanItem=params.get('item');if(scanItem)showItem(scanItem);
 </script>
