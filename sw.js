@@ -1,4 +1,5 @@
-const CACHE = 'mein-helfer-cache-v7';
+
+const CACHE = 'mein-helfer-cache-v8';
 
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -7,6 +8,7 @@ self.addEventListener('install', event => {
         './',
         './index.html',
         './manifest.webmanifest',
+        './icon.png',
         './icon.svg'
       ])
     )
@@ -19,7 +21,10 @@ self.addEventListener('activate', event => {
     caches.keys().then(names =>
       Promise.all(
         names
-          .filter(name => name.startsWith('mein-helfer-cache-') && name !== CACHE)
+          .filter(name =>
+            name.startsWith('mein-helfer-cache-') &&
+            name !== CACHE
+          )
           .map(name => caches.delete(name))
       )
     )
@@ -33,8 +38,12 @@ self.addEventListener('fetch', event => {
   event.respondWith(
     fetch(event.request)
       .then(response => {
-        const copy = response.clone();
-        caches.open(CACHE).then(cache => cache.put(event.request, copy));
+        if (response.ok) {
+          const copy = response.clone();
+          caches.open(CACHE).then(cache =>
+            cache.put(event.request, copy)
+          );
+        }
         return response;
       })
       .catch(() =>
