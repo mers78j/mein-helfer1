@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="de">
 <head>
@@ -77,247 +76,120 @@ footer button.active{background:var(--soft);color:var(--g)}
 <div class="sub">Alles wiederfinden. Nichts vergessen.</div>
 </header>
 <main>
+
 <section id="home">
-<div class="stats"><div class="stat"><small>Gespeicherte Dinge</small><strong id="itemCount">0</strong></div><div class="stat"><small>Offene Erinnerungen</small><strong id="dueCount">0</strong></div></div>
-<div class="actions"><button class="primary" onclick="show('items');openItem()">＋ Gegenstand speichern</button><button class="secondary" onclick="show('reminders');openReminder()">＋ Erinnerung anlegen</button></div>
-<div class="actions"><button class="secondary" onclick="show('devices')">🔧 Meine Geräte</button><button class="secondary" onclick="show('shortcuts')">⚡ Schnellzugriffe</button></div>
-<h2>Deine Übersicht</h2><div class="panel statgrid" id="dashboardStats"></div>
-<h2>⚡ Schnellzugriffe</h2><div id="homeShortcuts"></div>
-<h2>Als Nächstes</h2><div id="upcoming"></div><h2>Zuletzt gespeichert</h2><div id="recent"></div>
+<div class="actions">
+<button class="primary" onclick="show('items');openItem()">＋ Gegenstand speichern</button>
+<button class="secondary" onclick="show('reminders');openReminder()">＋ Erinnerung anlegen</button>
+</div>
+<div class="actions">
+<button class="secondary" onclick="show('devices')">🔧 Meine Geräte</button>
+<button class="secondary" onclick="show('shortcuts')">⚡ Schnellzugriffe</button>
+</div>
+<h2>⚡ Schnellzugriffe</h2>
+<div id="homeShortcuts"></div>
+<h2>Als Nächstes</h2>
+<div id="upcoming"></div>
 </section>
+
 <section id="items" class="hidden">
-<h2>Meine aufbewahrten Dinge</h2><input id="search" placeholder="🔎 Name, Ort, Kategorie oder Notiz suchen ..." oninput="renderItems()">
-<div class="row"><select id="filterCat" onchange="renderItems()"><option value="">Alle Kategorien</option><option>Deko</option><option>Werkzeug</option><option>Garten</option><option>Haushalt</option><option>Sonstiges</option></select><button class="primary" onclick="openItem()">＋ Neu</button></div>
-<div class="tabs"><button class="tab active" id="itemsAll" onclick="setItemView('all')">Alle</button><button class="tab" id="itemsFav" onclick="setItemView('fav')">★ Favoriten</button></div>
+<h2>Meine aufbewahrten Dinge</h2>
+<input id="search" placeholder="🔎 Name, Ort, Kategorie oder Notiz suchen ..." oninput="renderItems()">
+<div class="row">
+<select id="filterCat" onchange="renderItems()">
+<option value="">Alle Kategorien</option>
+<option>Deko</option><option>Werkzeug</option><option>Garten</option><option>Haushalt</option><option>Sonstiges</option>
+</select>
+<button class="primary" onclick="openItem()">＋ Neu</button>
+</div>
+<div class="tabs">
+<button class="tab active" id="itemsAll" onclick="setItemView('all')">Alle</button>
+<button class="tab" id="itemsFav" onclick="setItemView('fav')">★ Favoriten</button>
+</div>
 <div id="itemList"></div>
 </section>
+
 <section id="devices" class="hidden">
-<h2>🔧 Meine Geräte</h2><p class="sectionIntro">Hier verwaltest du Geräte getrennt von deinen übrigen Gegenständen.</p>
-<button class="primary" style="width:100%" onclick="openDevice()">＋ Gerät hinzufügen</button><div id="deviceList"></div>
+<h2>🔧 Meine Geräte</h2>
+<p class="sectionIntro">Hier verwaltest du Geräte getrennt von deinen übrigen Gegenständen.</p>
+<button class="primary" style="width:100%" onclick="openDevice()">＋ Gerät hinzufügen</button>
+<div id="deviceList"></div>
 </section>
+
 <section id="formDevice" class="hidden">
 <h2 id="deviceTitle">Gerät hinzufügen</h2>
 <label>Gerätename *</label><input id="dName" placeholder="z. B. Rasenmäher">
 <label>Hersteller</label><input id="dManufacturer">
 <label>Modell</label><input id="dModel">
 <label>Seriennummer</label><input id="dSerial">
-<div class="row"><div><label>Kaufdatum</label><input id="dDate" type="date"></div><div><label>Kaufpreis (€)</label><input id="dPrice" type="number" min="0" step="0.01"></div></div>
+<div class="row">
+<div><label>Kaufdatum</label><input id="dDate" type="date"></div>
+<div><label>Kaufpreis (€)</label><input id="dPrice" type="number" min="0" step="0.01"></div>
+</div>
 <label>Händler / Verkäufer</label><input id="dSeller">
 <label>Standort</label><input id="dPlace" placeholder="z. B. Garage">
 <label>Notizen</label><textarea id="dNote" rows="3"></textarea>
 <div class="panel">
-<h3>📄 Bedienungsanleitungen (PDF)</h3><p class="note">Mehrere PDF-Dateien möglich, maximal 700 KB je Datei.</p>
-<input id="dManualFiles" type="file" accept="application/pdf,.pdf" multiple onchange="addDevicePdfs(event,'manuals')"><div id="dManualList" class="docList"></div>
-<h3>🧾 Rechnungen (PDF)</h3><input id="dInvoiceFiles" type="file" accept="application/pdf,.pdf" multiple onchange="addDevicePdfs(event,'invoices')"><div id="dInvoiceList" class="docList"></div>
+<h3>📄 Bedienungsanleitungen (PDF)</h3>
+<p class="note">Mehrere PDF-Dateien möglich, maximal 700 KB je Datei.</p>
+<input id="dManualFiles" type="file" accept="application/pdf,.pdf" multiple onchange="addDevicePdfs(event,'manuals')">
+<div id="dManualList" class="docList"></div>
+<h3>🧾 Rechnungen (PDF)</h3>
+<input id="dInvoiceFiles" type="file" accept="application/pdf,.pdf" multiple onchange="addDevicePdfs(event,'invoices')">
+<div id="dInvoiceList" class="docList"></div>
 </div>
-<div class="row"><button class="quiet" onclick="show('devices')">Abbrechen</button><button class="primary" onclick="saveDevice()">Speichern</button></div>
+<div class="row">
+<button class="quiet" onclick="show('devices')">Abbrechen</button>
+<button class="primary" onclick="saveDevice()">Speichern</button>
+</div>
 </section>
+
 <section id="deviceDetail" class="hidden">
-<h2>🔧 Gerätedetails</h2><div class="panel" id="deviceDetailContent"></div>
-<div class="actions"><button class="quiet" onclick="show('devices')">Zur Geräteliste</button><button class="primary" id="editDeviceBtn">Bearbeiten</button></div>
+<h2>🔧 Gerätedetails</h2>
+<div class="panel" id="deviceDetailContent"></div>
+<div class="actions">
+<button class="quiet" onclick="show('devices')">Zur Geräteliste</button>
+<button class="primary" id="editDeviceBtn">Bearbeiten</button>
+</div>
 </section>
+
 <section id="shortcuts" class="hidden">
-<h2>⚡ Schnellzugriffe</h2><p class="sectionIntro">Lege Verknüpfungen zu gespeicherten Gegenständen an. Du kannst Namen und Symbol selbst wählen.</p>
-<button class="primary" style="width:100%" onclick="chooseShortcutItem()">＋ Schnellzugriff hinzufügen</button><div id="shortcutList"></div>
+<h2>⚡ Schnellzugriffe</h2>
+<p class="sectionIntro">Lege Verknüpfungen zu gespeicherten Gegenständen an. Du kannst Namen und Symbol selbst wählen.</p>
+<button class="primary" style="width:100%" onclick="chooseShortcutItem()">＋ Schnellzugriff hinzufügen</button>
+<div id="shortcutList"></div>
 </section>
-<section id="reminders" class="hidden">
-<h2>Gartenkalender & Erinnerungen</h2>
-<div class="panel"><h3>🌱 Vorschläge für den Garten</h3><p class="note">Grobe Richtwerte für Deutschland. Pflanzenart, Wetter und örtliche Bedingungen beachten.</p><div id="gardenPresets"></div></div>
-<button class="primary" style="width:100%;margin-top:12px" onclick="openReminder()">＋ Eigene Erinnerung</button>
-<div class="tabs"><button class="tab active" id="rAll" onclick="setFilter('all')">Alle</button><button class="tab" id="rOpen" onclick="setFilter('open')">Offen</button><button class="tab" id="rDone" onclick="setFilter('done')">Erledigt</button></div>
-<div id="reminderList"></div>
-</section>
-<section id="formItem" class="hidden">
-<h2 id="itemTitle">Gegenstand speichern</h2>
-<label>Name *</label><input id="iName" placeholder="z. B. Lichterkette">
-<label>Kategorie</label><select id="iCat"><option>Deko</option><option>Werkzeug</option><option>Garten</option><option>Haushalt</option><option>Sonstiges</option></select>
-<label>Wo liegt es?</label><input id="iPlace" placeholder="z. B. Dachboden, blaue Kiste">
-<label>Hinweise</label><textarea id="iNote" rows="3"></textarea>
-<label>Foto hinzufügen (optional)</label><input id="iPhotoFile" type="file" accept="image/*" capture="environment" onchange="handlePhoto(event)">
-<img id="iPhotoPreview" class="photoPreview hidden" alt="Vorschau"><button type="button" class="mini hidden" id="removePhotoBtn" onclick="removePhoto()">Foto entfernen</button>
-<p class="note">Fotos und Einträge werden lokal auf diesem Handy gespeichert.</p>
-<div class="panel">
-<h3>📄 Geräteunterlagen (PDF)</h3><p class="note">Nur PDF-Dateien bis 700 KB je Datei.</p>
-<label>Bedienungsanleitungen</label><input id="manualFiles" type="file" accept="application/pdf,.pdf" multiple onchange="addPdfFiles(event,'manuals')"><div id="manualEditList" class="docList"></div>
-<label>Rechnungen</label><input id="invoiceFiles" type="file" accept="application/pdf,.pdf" multiple onchange="addPdfFiles(event,'invoices')"><div id="invoiceEditList" class="docList"></div>
-</div>
-<div class="row"><button class="quiet" onclick="show('items')">Abbrechen</button><button class="primary" onclick="saveItem()">Speichern</button></div>
-</section>
-<section id="formReminder" class="hidden">
-<h2 id="remTitle">Erinnerung anlegen</h2>
-<label>Woran soll ich dich erinnern? *</label><input id="rName">
-<label>Bereich</label><select id="rCat"><option>Garten</option><option>Haushalt</option><option>Wartung</option><option>Sonstiges</option></select>
-<label>Datum</label><input id="rDate" type="date">
-<label>Wiederholung</label><select id="rRepeat"><option value="none">Keine</option><option value="yearly">Jährlich</option><option value="monthly">Monatlich</option></select>
-<label>Notiz</label><textarea id="rNote" rows="2"></textarea>
-<div class="row"><button class="quiet" onclick="show('reminders')">Abbrechen</button><button class="primary" onclick="saveReminder()">Speichern</button></div>
-<p class="note">Erinnerungen werden beim Öffnen der App geprüft.</p>
-</section>
-<section id="itemDetail" class="hidden">
-<h2>📦 Gegenstand ansehen</h2><div id="detailContent" class="panel"></div>
-<div class="actions noPrint"><button class="secondary" onclick="show('items')">Zur Liste</button><button class="primary" id="detailQrButton">QR-Code anzeigen</button></div>
-</section>
-<section id="qrPage" class="hidden">
-<h2 id="qrHeading">QR-Code</h2><div id="qrContent" class="qrPanel"></div>
-<div class="actions noPrint"><button class="quiet" onclick="showItem(currentQrId)">Zurück</button><button class="primary" onclick="window.print()">QR-Code drucken</button></div>
-<p class="note noPrint">Der QR-Code enthält einen App-Link, keine Gegenstandsdaten. Der Eintrag muss auf dem scannenden Gerät lokal vorhanden sein.</p>
-</section>
-<section id="settings" class="hidden">
-<h2>Daten & Einstellungen</h2>
-<div class="panel"><h3>Sicherung erstellen</h3><p class="note">Alle Daten einschließlich Geräte, Schnellzugriffe, Fotos und PDFs liegen lokal in diesem Browser. Exportiere regelmäßig eine Sicherung.</p>
-<button class="primary" style="width:100%" onclick="backup()">Sicherung herunterladen</button>
-<label>Wiederherstellen</label><input type="file" accept="application/json" onchange="restore(event)">
-</div>
-<div class="panel" style="margin-top:12px"><div class="switchrow"><div><h3>🌙 Dunkelmodus</h3><p class="note">Dunkles Design für die App.</p></div><button class="secondary" id="themeBtn" onclick="toggleTheme()">Aktivieren</button></div></div>
-<div class="panel" style="margin-top:12px"><h3>🕘 Änderungsverlauf</h3><div id="historyList"></div></div>
-</section>
-</main>
-<footer>
-<button id="navHome" class="active" onclick="show('home')">⌂<br>Start</button>
-<button id="navItems" onclick="show('items')">▣<br>Dinge</button>
-<button id="navDevices" onclick="show('devices')">🔧<br>Geräte</button>
-<button id="navReminders" onclick="show('reminders')">◷<br>Termine</button>
-<button id="navSettings" onclick="show('settings')">⚙<br>Daten</button>
-</footer>
-<script>
+function render(){
+  let a=data.reminders
+    .filter(x=>!x.done)
+    .sort((x,y)=>actualDate(x)-actualDate(y))
+    .slice(0,4);
 
-const KEY='mein-helfer-v1',THEME_KEY='mein-helfer-theme-v1';
-let data;
-try{data=JSON.parse(localStorage.getItem(KEY))||{items:[],reminders:[]}}catch(e){data={items:[],reminders:[]}}
-data.items=Array.isArray(data.items)?data.items:[];
-data.reminders=Array.isArray(data.reminders)?data.reminders:[];
-data.history=Array.isArray(data.history)?data.history:[];
-data.devices=Array.isArray(data.devices)?data.devices:[];
-data.shortcuts=Array.isArray(data.shortcuts)?data.shortcuts:[];
+  $('upcoming').innerHTML=a.length
+    ?a.map(x=>`<div class="entry">
+      <div class="emoji">🌼</div>
+      <div class="details">
+        <h3>${esc(x.title)}</h3>
+        <p>${dateLabel(x.date)}</p>
+      </div>
+    </div>`).join('')
+    :'<div class="empty">Noch keine anstehenden Aufgaben.</div>';
 
-let editItem=null,editRem=null,editDeviceId=null,editPhoto='',editManuals=[],editInvoices=[],deviceManuals=[],deviceInvoices=[],filter='all',currentQrId=null,itemView='all';
-const $=id=>document.getElementById(id);
+  $('homeShortcuts').innerHTML=shortcutMarkup();
+  $('shortcutList').innerHTML=shortcutMarkup();
 
-const presets=[
-{title:'Ziergräser zurückschneiden',month:2,day:20,note:'Viele sommergrüne Ziergräser werden im Spätwinter vor dem Neuaustrieb zurückgeschnitten. Immergrüne Gräser nur ausputzen.'},
-{title:'Rosen zurückschneiden',month:3,day:20,note:'Zeitpunkt und Schnitt richten sich nach Rosengruppe und Austrieb.'},
-{title:'Lavendel zurückschneiden',month:3,day:25,note:'Im Frühjahr maßvoll in den grünen, belaubten Bereich schneiden; nicht tief ins alte Holz.'},
-{title:'Staudenbeete kontrollieren',month:3,day:15,note:'Alte Pflanzenteile entfernen, Austriebe prüfen und Beete vorsichtig auflockern.'},
-{title:'Kübelpflanzen auf Überwinterung prüfen',month:9,day:20,note:'Frostempfindliche Pflanzen rechtzeitig je nach Wetter und Pflanzenart schützen oder einräumen.'},
-{title:'Frühjahrsdüngung prüfen',month:3,day:25,note:'Düngebedarf je nach Pflanze und Boden prüfen; Packungsangaben beachten.'},
-{title:'Hecken und Gehölze kontrollieren',month:2,day:15,note:'Vor Schnittarbeiten prüfen, ob Vögel brüten. Starke Rückschnitte sind in Deutschland vom 1. März bis 30. September grundsätzlich eingeschränkt; örtliche Regeln beachten.'}
-];
+  renderItems();
+  renderDevices();
+  renderReminders();
+  renderPresets();
+  renderHistory();
 
-function log(action,what){
-  data.history.unshift({id:crypto.randomUUID(),date:new Date().toISOString(),action,what});
-  data.history=data.history.slice(0,60)
+  $('themeBtn').textContent=
+    document.body.classList.contains('dark')
+    ?'Deaktivieren'
+    :'Aktivieren';
 }
-function save(){
-  try{localStorage.setItem(KEY,JSON.stringify(data));render()}
-  catch(e){alert('Der Speicher auf diesem Handy ist möglicherweise voll. Fotos und PDFs benötigen zusätzlichen Speicher. Entferne eine Datei oder exportiere zuerst eine Sicherung.')}
-}
-function esc(s=''){
-  return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))
-}
-function catIcon(c){
-  return ({Deko:'🕯️',Werkzeug:'🛠️',Garten:'🌱',Haushalt:'🏠',Sonstiges:'📦'})[c]||'📦'
-}
-function show(id){
-  document.querySelectorAll('main>section').forEach(s=>s.classList.add('hidden'));
-  $(id).classList.remove('hidden');
-  document.querySelectorAll('footer button').forEach(b=>b.classList.remove('active'));
-  let n={home:'navHome',items:'navItems',devices:'navDevices',reminders:'navReminders',settings:'navSettings'}[id];
-  if(n)$(n).classList.add('active');
-  render()
-}
-function dateLabel(s){
-  return s?new Date(s+'T12:00:00').toLocaleDateString('de-DE',{day:'2-digit',month:'long',year:'numeric'}):'Ohne Datum'
-}
-function nextDate(month,day){
-  let now=new Date(),y=now.getFullYear(),d=new Date(y,month,day);
-  if(d<new Date(now.getFullYear(),now.getMonth(),now.getDate()))d=new Date(y+1,month,day);
-  return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')
-}
-function addPreset(i){
-  let p=presets[i],d=nextDate(p.month,p.day);
-  data.reminders.push({id:crypto.randomUUID(),title:p.title,cat:'Garten',date:d,repeat:'yearly',note:p.note,done:false});
-  log('Erinnerung hinzugefügt',p.title);
-  save();
-  alert('Garten-Erinnerung wurde hinzugefügt: '+p.title)
-}
-function renderPresets(){
-  $('gardenPresets').innerHTML=presets.map((p,i)=>`<div class="preset"><h3>${esc(p.title)}</h3><p>${esc(p.note)}</p><button class="secondary" onclick="addPreset(${i})">＋ Als jährliche Erinnerung übernehmen</button></div>`).join('')
-}
-function updatePhotoPreview(){
-  let im=$('iPhotoPreview'),b=$('removePhotoBtn');
-  if(editPhoto){im.src=editPhoto;im.classList.remove('hidden');b.classList.remove('hidden')}
-  else{im.removeAttribute('src');im.classList.add('hidden');b.classList.add('hidden')}
-}
-function handlePhoto(ev){
-  let file=ev.target.files&&ev.target.files[0];
-  if(!file)return;
-  if(!file.type.startsWith('image/'))return alert('Bitte wähle eine Bilddatei aus.');
-  let reader=new FileReader();
-  reader.onload=()=>{
-    let img=new Image();
-    img.onload=()=>{
-      let max=900,scale=Math.min(1,max/Math.max(img.width,img.height)),w=Math.max(1,Math.round(img.width*scale)),h=Math.max(1,Math.round(img.height*scale)),canvas=document.createElement('canvas');
-      canvas.width=w;canvas.height=h;
-      canvas.getContext('2d').drawImage(img,0,0,w,h);
-      editPhoto=canvas.toDataURL('image/jpeg',0.72);
-      updatePhotoPreview()
-    };
-    img.onerror=()=>alert('Das Foto konnte nicht gelesen werden.');
-    img.src=reader.result
-  };
-  reader.readAsDataURL(file)
-}
-function removePhoto(){
-  editPhoto='';
-  $('iPhotoFile').value='';
-  updatePhotoPreview()
-}
-function openItem(id=null){
-  editItem=id;
-  let x=data.items.find(a=>a.id===id)||{};
-  $('itemTitle').textContent=id?'Gegenstand bearbeiten':'Gegenstand speichern';
-  $('iName').value=x.name||'';
-  $('iCat').value=x.cat||'Deko';
-  $('iPlace').value=x.place||'';
-  $('iNote').value=x.note||'';
-  editPhoto=x.photo||'';
-  editManuals=Array.isArray(x.manuals)?x.manuals.slice():[];
-  editInvoices=Array.isArray(x.invoices)?x.invoices.slice():[];
-  $('iPhotoFile').value='';
-  $('manualFiles').value='';
-  $('invoiceFiles').value='';
-  updatePhotoPreview();
-  renderEditDocs();
-  show('formItem')
-}
-function readPdfFiles(files,target,done){
-  Array.from(files||[]).forEach(file=>{
-    if(!(file.type==='application/pdf'||file.name.toLowerCase().endsWith('.pdf'))){alert('Bitte nur PDF-Dateien auswählen.');return}
-    if(file.size>700*1024){alert('„'+file.name+'“ ist größer als 700 KB.');return}
-    let r=new FileReader();
-    r.onload=()=>{target.push({id:crypto.randomUUID(),name:file.name,size:file.size,data:r.result});done()};
-    r.onerror=()=>alert('PDF konnte nicht gelesen werden.');
-    r.readAsDataURL(file)
-  })
-}
-function addPdfFiles(ev,kind){
-  let target=kind==='manuals'?editManuals:editInvoices;
-  readPdfFiles(ev.target.files,target,renderEditDocs);
-  ev.target.value=''
-}
-function removeEditDoc(kind,id){
-  if(kind==='manuals')editManuals=editManuals.filter(d=>d.id!==id);
-  else editInvoices=editInvoices.filter(d=>d.id!==id);
-  renderEditDocs()
-}
-function docRows(arr,kind,removeFn){
-  return arr.length?arr.map(d=>`<div class="docRow"><span>📄</span><span style="overflow-wrap:anywhere">${esc(d.name)}</span>${removeFn?`<button class="mini" onclick="${removeFn}('${kind}','${d.id}')">Entfernen</button>`:`<a href="${d.data}" target="_blank" rel="noopener">Öffnen</a>`}</div>`).join(''):'<span class="note">Noch keine PDF-Datei angehängt.</span>'
-}
-function renderEditDocs(){
-  $('manualEditList').innerHTML=docRows(editManuals,'manuals','removeEditDoc');
-  $('invoiceEditList').innerHTML=docRows(editInvoices,'invoices','removeEditDoc')
-}
-function saveItem(){
+  function saveItem(){
   if(!$('iName').value.trim())return alert('Bitte einen Namen eingeben.');
   let old=data.items.find(a=>a.id===editItem)||{};
   let x={...old,id:editItem||crypto.randomUUID(),name:$('iName').value.trim(),cat:$('iCat').value,place:$('iPlace').value.trim(),note:$('iNote').value.trim(),photo:editPhoto,manuals:editManuals,invoices:editInvoices,favorite:!!old.favorite,createdAt:old.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};
@@ -357,12 +229,19 @@ function docsMarkup(title,arr){
 }
 function showItem(id){
   let x=data.items.find(a=>a.id===id);
-  if(!x){alert('Dieser Eintrag wurde auf diesem Handy nicht gefunden.');show('items');return}
+  if(!x){
+    alert('Dieser Eintrag wurde auf diesem Handy nicht gefunden.');
+    show('items');
+    return
+  }
   $('detailContent').innerHTML=`<h3>${catIcon(x.cat)} ${esc(x.name)} ${x.favorite?'★':''}</h3><p>${esc(x.cat)} · ${esc(x.place||'Ort nicht eingetragen')}</p>${x.photo?`<img class="detailPhoto" src="${x.photo}" alt="">`:''}<p>${esc(x.note||'')}</p>${docsMarkup('📘 Bedienungsanleitungen',Array.isArray(x.manuals)?x.manuals:[])}${docsMarkup('🧾 Rechnungen',Array.isArray(x.invoices)?x.invoices:[])}<div class="tools noPrint"><button class="mini" onclick="openItem('${x.id}')">Bearbeiten</button><button class="mini" onclick="toggleFavorite('${x.id}')">★ Favorit umschalten</button><button class="mini" onclick="addShortcut('${x.id}')">⚡ Schnellzugriff hinzufügen</button><button class="mini" onclick="printItem('${x.id}')">Drucken</button></div>`;
   $('detailQrButton').onclick=()=>openQR(id);
   show('itemDetail')
 }
-function printItem(id){showItem(id);setTimeout(()=>window.print(),100)}
+function printItem(id){
+  showItem(id);
+  setTimeout(()=>window.print(),100)
+}
 function itemUrl(id){
   let u=new URL(location.href);
   u.search='';
@@ -429,6 +308,7 @@ function delRem(id){
     save()
   }
 }
+
 function renderReminders(){
   let a=data.reminders.filter(x=>filter==='all'||(filter==='done'?x.done:!x.done)).sort((x,y)=>actualDate(x)-actualDate(y));
   $('reminderList').innerHTML=a.length?a.map(x=>`<div class="entry"><div class="emoji">🌷</div><div class="details"><h3>${esc(x.title)} ${x.done?'<span class="pill">Erledigt</span>':''}</h3><p>${dateLabel(x.date)} · ${x.repeat==='yearly'?'jährlich':x.repeat==='monthly'?'monatlich':'einmalig'}</p><p>${esc(x.note||'')}</p><div class="tools"><button class="mini" onclick="toggle('${x.id}')">${x.done?'Wieder öffnen':'Erledigt'}</button><button class="mini" onclick="openReminder('${x.id}')">Bearbeiten</button><button class="mini" onclick="delRem('${x.id}')">Löschen</button></div></div></div>`).join(''):'<div class="empty">Keine Erinnerungen in dieser Ansicht.</div>'
@@ -535,22 +415,37 @@ function shortcutMarkup(){
 function renderHistory(){
   $('historyList').innerHTML=data.history.length?data.history.slice(0,25).map(h=>`<div class="historyline"><strong>${esc(h.action)}</strong><br>${esc(h.what)}<br><span class="note">${new Date(h.date).toLocaleString('de-DE')}</span></div>`).join(''):'<div class="empty">Noch keine Änderungen aufgezeichnet.</div>'
 }
+
+/* Überarbeitete Startseiten-Anzeige */
 function render(){
-  $('itemCount').textContent=data.items.length;
-  $('dueCount').textContent=data.reminders.filter(x=>!x.done).length;
-  let cats=['Deko','Werkzeug','Garten','Haushalt','Sonstiges'];
-  $('dashboardStats').innerHTML=`<div class="smallstat">★ Favoriten<br><strong>${data.items.filter(x=>x.favorite).length}</strong></div><div class="smallstat">🔧 Geräte<br><strong>${data.devices.length}</strong></div>`+cats.map(c=>`<div class="smallstat">${catIcon(c)} ${c}<br><strong>${data.items.filter(x=>x.cat===c).length}</strong></div>`).join('');
-  let a=data.reminders.filter(x=>!x.done).sort((x,y)=>actualDate(x)-actualDate(y)).slice(0,4);
-  $('upcoming').innerHTML=a.length?a.map(x=>`<div class="entry"><div class="emoji">🌼</div><div class="details"><h3>${esc(x.title)}</h3><p>${dateLabel(x.date)}</p></div></div>`).join(''):'<div class="empty">Noch keine anstehenden Aufgaben.</div>';
-  $('recent').innerHTML=data.items.slice(0,3).map(x=>`<div class="entry"><div class="emoji">${catIcon(x.cat)}</div><div class="details"><h3>${esc(x.name)}</h3><p>${esc(x.place||x.cat)}</p></div></div>`).join('')||'<div class="empty">Deine Gegenstände erscheinen hier.</div>';
+  let a=data.reminders
+    .filter(x=>!x.done)
+    .sort((x,y)=>actualDate(x)-actualDate(y))
+    .slice(0,4);
+
+  $('upcoming').innerHTML=a.length
+    ?a.map(x=>`<div class="entry">
+      <div class="emoji">🌼</div>
+      <div class="details">
+        <h3>${esc(x.title)}</h3>
+        <p>${dateLabel(x.date)}</p>
+      </div>
+    </div>`).join('')
+    :'<div class="empty">Noch keine anstehenden Aufgaben.</div>';
+
   $('homeShortcuts').innerHTML=shortcutMarkup();
   $('shortcutList').innerHTML=shortcutMarkup();
+
   renderItems();
   renderDevices();
   renderReminders();
   renderPresets();
   renderHistory();
-  $('themeBtn').textContent=document.body.classList.contains('dark')?'Deaktivieren':'Aktivieren'
+
+  $('themeBtn').textContent=
+    document.body.classList.contains('dark')
+    ?'Deaktivieren'
+    :'Aktivieren';
 }
 function backup(){
   let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
@@ -576,7 +471,9 @@ function restore(e){
         save();
         alert('Sicherung wiederhergestellt.')
       }
-    }catch(_){alert('Ungültige Sicherungsdatei.')}
+    }catch(_){
+      alert('Ungültige Sicherungsdatei.')
+    }
     e.target.value=''
   };
   r.readAsText(f)
