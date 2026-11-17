@@ -1,4 +1,3 @@
-
 {
   "name": "Mein Helfer",
   "short_name": "Mein Helfer",
@@ -9,15 +8,9 @@
   "lang": "de",
   "icons": [
     {
-      "src": "icon.png",
+      "src": "icon.png?v=8",
       "sizes": "512x512",
       "type": "image/png",
-      "purpose": "any"
-    },
-    {
-      "src": "icon.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
       "purpose": "any"
     }
   ]
