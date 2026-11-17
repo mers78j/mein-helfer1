@@ -1,6 +1,6 @@
 {
-  "name": "Mein Helfer",
-  "short_name": "Mein Helfer",
+  "name": "Mers Planer",
+  "short_name": "Mers Planer",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#f7f5ee",
