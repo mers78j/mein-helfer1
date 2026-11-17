@@ -46,9 +46,92 @@ label{font-size:13px;color:var(--muted);font-weight:650}
 .note{font-size:12px;color:var(--muted);line-height:1.45}
 .preset{background:var(--soft);border:1px solid var(--line);border-radius:13px;padding:12px;margin:8px 0}
 .preset p{font-size:13px;color:var(--muted);margin:4px 0 9px}
-footer{position:fixed;bottom:0;left:0;right:0;background:var(--paper);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px 3px;z-index:5}
-footer button{background:transparent;color:var(--muted);padding:8px 5px;font-size:12px}
-footer button.active{background:var(--soft);color:var(--g)}
+
+/* Neues Menü am unteren Bildschirmrand */
+footer.menuFooter{
+  position:fixed;
+  bottom:0;
+  left:0;
+  right:0;
+  background:var(--paper);
+  border-top:1px solid var(--line);
+  display:flex;
+  justify-content:space-around;
+  padding:8px 3px calc(8px + env(safe-area-inset-bottom));
+  z-index:10;
+}
+.menuFooter button{
+  flex:1;
+  background:transparent;
+  color:var(--muted);
+  padding:8px 5px;
+  font-size:12px;
+}
+.menuFooter button.active{
+  background:var(--soft);
+  color:var(--g);
+}
+
+/* Ausklappbares Menü von unten */
+.menuOverlay{
+  position:fixed;
+  inset:0;
+  z-index:20;
+  background:rgba(10,20,35,.45);
+  display:flex;
+  align-items:flex-end;
+  justify-content:center;
+}
+.menuOverlay.hidden{display:none!important}
+.menuSheet{
+  width:100%;
+  max-width:760px;
+  background:var(--paper);
+  color:var(--ink);
+  border-radius:24px 24px 0 0;
+  padding:12px 18px calc(24px + env(safe-area-inset-bottom));
+  box-shadow:0 -8px 30px rgba(0,0,0,.18);
+  animation:menuSlideUp .25s ease-out;
+}
+@keyframes menuSlideUp{
+  from{transform:translateY(100%)}
+  to{transform:translateY(0)}
+}
+.menuHandle{
+  width:42px;
+  height:5px;
+  border-radius:9px;
+  background:var(--line);
+  margin:0 auto 16px;
+}
+.menuTitle{
+  font-size:19px;
+  font-weight:750;
+  margin:4px 0 14px;
+}
+.menuEntry{
+  display:flex;
+  align-items:center;
+  gap:13px;
+  width:100%;
+  padding:15px 12px;
+  margin:5px 0;
+  text-align:left;
+  background:var(--soft);
+  color:var(--ink);
+  border-radius:13px;
+  font-size:15px;
+}
+.menuEntry .menuIcon{
+  font-size:23px;
+  width:32px;
+  text-align:center;
+}
+.menuEntry .menuArrow{
+  margin-left:auto;
+  color:var(--muted);
+}
+
 .itemPhoto{width:76px;height:76px;object-fit:cover;border-radius:12px;flex:none;border:1px solid var(--line)}
 .photoPreview{display:block;max-width:100%;max-height:220px;object-fit:contain;border-radius:12px;margin:5px 0 10px}
 .detailPhoto{max-width:100%;max-height:260px;object-fit:contain;border-radius:12px;margin:8px 0}
@@ -76,8 +159,7 @@ footer button.active{background:var(--soft);color:var(--g)}
 <div class="sub">Alles wiederfinden. Nichts vergessen.</div>
 </header>
 <main>
-
-<section id="home">
+  <section id="home">
 <div class="actions">
 <button class="primary" onclick="show('items');openItem()">＋ Gegenstand speichern</button>
 <button class="secondary" onclick="show('reminders');openReminder()">＋ Erinnerung anlegen</button>
@@ -159,6 +241,7 @@ footer button.active{background:var(--soft);color:var(--g)}
 <button class="primary" style="width:100%" onclick="chooseShortcutItem()">＋ Schnellzugriff hinzufügen</button>
 <div id="shortcutList"></div>
 </section>
+
 <section id="reminders" class="hidden">
 <h2>Gartenkalender & Erinnerungen</h2>
 <div class="panel">
@@ -265,14 +348,51 @@ footer button.active{background:var(--soft);color:var(--g)}
 </div>
 </section>
 </main>
-
-<footer>
-<button id="navHome" class="active" onclick="show('home')">⌂<br>Start</button>
-<button id="navItems" onclick="show('items')">▣<br>Dinge</button>
-<button id="navDevices" onclick="show('devices')">🔧<br>Geräte</button>
-<button id="navReminders" onclick="show('reminders')">◷<br>Termine</button>
-<button id="navSettings" onclick="show('settings')">⚙<br>Daten</button>
+<footer class="menuFooter">
+<button id="navHome" class="active" onclick="show('home')">
+⌂<br>Start
+</button>
+<button id="menuOpenButton" onclick="openMenu()">
+☰<br>Menü
+</button>
 </footer>
+
+<div id="menuOverlay" class="menuOverlay hidden" onclick="closeMenu()">
+<div class="menuSheet" onclick="event.stopPropagation()">
+<div class="menuHandle"></div>
+<div class="menuTitle">Mers Planer – Menü</div>
+
+<button class="menuEntry" onclick="menuGo('items')">
+<span class="menuIcon">📦</span>
+<strong>Dinge</strong>
+<span class="menuArrow">›</span>
+</button>
+
+<button class="menuEntry" onclick="menuGo('devices')">
+<span class="menuIcon">🔧</span>
+<strong>Geräte</strong>
+<span class="menuArrow">›</span>
+</button>
+
+<button class="menuEntry" onclick="menuGo('reminders')">
+<span class="menuIcon">🌷</span>
+<strong>Termine</strong>
+<span class="menuArrow">›</span>
+</button>
+
+<button class="menuEntry" onclick="menuGo('shortcuts')">
+<span class="menuIcon">⚡</span>
+<strong>Schnellzugriffe</strong>
+<span class="menuArrow">›</span>
+</button>
+
+<button class="menuEntry" onclick="menuGo('settings')">
+<span class="menuIcon">⚙️</span>
+<strong>Daten & Einstellungen</strong>
+<span class="menuArrow">›</span>
+</button>
+</div>
+</div>
 
 <script>
 const KEY='mein-helfer-v1',THEME_KEY='mein-helfer-theme-v1';
@@ -301,6 +421,20 @@ const presets=[
 {title:'Hecken und Gehölze kontrollieren',month:2,day:15,note:'Vor Schnittarbeiten prüfen, ob Vögel brüten. Starke Rückschnitte sind in Deutschland vom 1. März bis 30. September grundsätzlich eingeschränkt; örtliche Regeln beachten.'}
 ];
 
+function openMenu(){
+  $('menuOverlay').classList.remove('hidden');
+}
+function closeMenu(){
+  $('menuOverlay').classList.add('hidden');
+}
+function menuGo(id){
+  closeMenu();
+  show(id);
+}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape')closeMenu();
+});
+
 function log(action,what){
   data.history.unshift({id:crypto.randomUUID(),date:new Date().toISOString(),action,what});
   data.history=data.history.slice(0,60)
@@ -320,11 +454,15 @@ function catIcon(c){
   return ({Deko:'🕯️',Werkzeug:'🛠️',Garten:'🌱',Haushalt:'🏠',Sonstiges:'📦'})[c]||'📦'
 }
 function show(id){
+  closeMenu();
   document.querySelectorAll('main>section').forEach(s=>s.classList.add('hidden'));
   $(id).classList.remove('hidden');
-  document.querySelectorAll('footer button').forEach(b=>b.classList.remove('active'));
-  let n={home:'navHome',items:'navItems',devices:'navDevices',reminders:'navReminders',settings:'navSettings'}[id];
-  if(n)$(n).classList.add('active');
+  document.querySelectorAll('.menuFooter button').forEach(b=>b.classList.remove('active'));
+  if(id==='home'){
+    $('navHome').classList.add('active');
+  }else{
+    $('menuOpenButton').classList.add('active');
+  }
   render()
 }
 function dateLabel(s){
@@ -554,186 +692,139 @@ function delRem(id){
     save()
   }
 }
-
 function renderReminders(){
   let a=data.reminders.filter(x=>filter==='all'||(filter==='done'?x.done:!x.done)).sort((x,y)=>actualDate(x)-actualDate(y));
   $('reminderList').innerHTML=a.length?a.map(x=>`<div class="entry"><div class="emoji">🌷</div><div class="details"><h3>${esc(x.title)} ${x.done?'<span class="pill">Erledigt</span>':''}</h3><p>${dateLabel(x.date)} · ${x.repeat==='yearly'?'jährlich':x.repeat==='monthly'?'monatlich':'einmalig'}</p><p>${esc(x.note||'')}</p><div class="tools"><button class="mini" onclick="toggle('${x.id}')">${x.done?'Wieder öffnen':'Erledigt'}</button><button class="mini" onclick="openReminder('${x.id}')">Bearbeiten</button><button class="mini" onclick="delRem('${x.id}')">Löschen</button></div></div></div>`).join(''):'<div class="empty">Keine Erinnerungen in dieser Ansicht.</div>'
 }
-
-function openDevice(id=null){
-  editDeviceId=id;
-  let x=data.devices.find(d=>d.id===id)||{};
+  function openDevice(id=null){
+  editDevice=id;
+  let x=data.devices.find(a=>a.id===id)||{};
+  editDevicePdfs=Array.isArray(x.docs)?[...x.docs]:[];
   $('deviceTitle').textContent=id?'Gerät bearbeiten':'Gerät hinzufügen';
   $('dName').value=x.name||'';
-  $('dManufacturer').value=x.manufacturer||'';
+  $('dBrand').value=x.brand||'';
   $('dModel').value=x.model||'';
-  $('dSerial').value=x.serial||'';
-  $('dDate').value=x.date||'';
-  $('dPrice').value=x.price??'';
-  $('dSeller').value=x.seller||'';
   $('dPlace').value=x.place||'';
   $('dNote').value=x.note||'';
-  deviceManuals=Array.isArray(x.manuals)?x.manuals.slice():[];
-  deviceInvoices=Array.isArray(x.invoices)?x.invoices.slice():[];
-  $('dManualFiles').value='';
-  $('dInvoiceFiles').value='';
   renderDeviceDocs();
   show('formDevice')
 }
-function addDevicePdfs(ev,kind){
-  let target=kind==='manuals'?deviceManuals:deviceInvoices;
-  readPdfFiles(ev.target.files,target,renderDeviceDocs);
-  ev.target.value=''
+async function addDevicePdfs(files){
+  for(let f of files){
+    if(f.type!=='application/pdf')continue;
+    let dataUrl=await fileToDataURL(f);
+    editDevicePdfs.push({name:f.name,data:dataUrl,size:f.size})
+  }
+  renderDeviceDocs()
 }
 function renderDeviceDocs(){
-  $('dManualList').innerHTML=docRows(deviceManuals,'manuals','removeDeviceDoc');
-  $('dInvoiceList').innerHTML=docRows(deviceInvoices,'invoices','removeDeviceDoc')
+  $('deviceDocs').innerHTML=editDevicePdfs.length?editDevicePdfs.map((d,i)=>`<div class="docRow"><span>📄</span><span>${esc(d.name)}</span><button class="mini" onclick="removeDeviceDoc(${i})">Entfernen</button></div>`).join(''):'<span class="note">Noch keine PDF-Dateien hinzugefügt.</span>'
 }
-function removeDeviceDoc(kind,id){
-  if(kind==='manuals')deviceManuals=deviceManuals.filter(d=>d.id!==id);
-  else deviceInvoices=deviceInvoices.filter(d=>d.id!==id);
+function removeDeviceDoc(i){
+  editDevicePdfs.splice(i,1);
   renderDeviceDocs()
 }
 function saveDevice(){
   if(!$('dName').value.trim())return alert('Bitte einen Gerätenamen eingeben.');
-  let old=data.devices.find(d=>d.id===editDeviceId)||{};
-  let x={...old,id:editDeviceId||crypto.randomUUID(),name:$('dName').value.trim(),manufacturer:$('dManufacturer').value.trim(),model:$('dModel').value.trim(),serial:$('dSerial').value.trim(),date:$('dDate').value,price:$('dPrice').value,seller:$('dSeller').value.trim(),place:$('dPlace').value.trim(),note:$('dNote').value.trim(),manuals:deviceManuals,invoices:deviceInvoices,createdAt:old.createdAt||new Date().toISOString(),updatedAt:new Date().toISOString()};
-  data.devices=editDeviceId?data.devices.map(d=>d.id===editDeviceId?x:d):[x,...data.devices];
-  log(editDeviceId?'Gerät bearbeitet':'Gerät gespeichert',x.name);
+  let old=data.devices.find(a=>a.id===editDevice)||{};
+  let x={id:editDevice||crypto.randomUUID(),name:$('dName').value.trim(),brand:$('dBrand').value.trim(),model:$('dModel').value.trim(),place:$('dPlace').value.trim(),note:$('dNote').value.trim(),docs:editDevicePdfs};
+  data.devices=editDevice?data.devices.map(a=>a.id===editDevice?x:a):[x,...data.devices];
+  log(editDevice?'Gerät bearbeitet':'Gerät gespeichert',x.name);
   save();
   show('devices')
 }
 function renderDevices(){
-  $('deviceList').innerHTML=data.devices.length?data.devices.map(d=>`<div class="entry"><div class="emoji">🔧</div><div class="details"><h3>${esc(d.name)}</h3><p>${esc([d.manufacturer,d.model].filter(Boolean).join(' · ')||'Hersteller/Modell nicht eingetragen')}</p><p>${esc(d.place||'Standort fehlt')} · 📄 ${(d.manuals||[]).length} Anleitung(en), ${(d.invoices||[]).length} Rechnung(en)</p><div class="tools"><button class="mini" onclick="showDevice('${d.id}')">Ansehen</button><button class="mini" onclick="openDevice('${d.id}')">Bearbeiten</button><button class="mini" onclick="deleteDevice('${d.id}')">Löschen</button></div></div></div>`).join(''):'<div class="empty">Noch keine Geräte gespeichert.</div>'
+  $('deviceList').innerHTML=data.devices.length?data.devices.map(x=>`<div class="entry"><div class="emoji">🔌</div><div class="details"><h3>${esc(x.name)}</h3><p>${esc([x.brand,x.model].filter(Boolean).join(' · '))}</p><p>${esc(x.place||'Ort nicht eingetragen')}</p><p>📄 ${(x.docs||[]).length} PDF-Datei(en)</p><div class="tools"><button class="mini" onclick="showDevice('${x.id}')">Ansehen</button><button class="mini" onclick="openDevice('${x.id}')">Bearbeiten</button><button class="mini" onclick="deleteDevice('${x.id}')">Löschen</button></div></div></div>`).join(''):'<div class="empty">Noch keine Geräte gespeichert.</div>'
 }
 function showDevice(id){
-  let d=data.devices.find(x=>x.id===id);
-  if(!d)return;
-  let rows=[['Hersteller',d.manufacturer],['Modell',d.model],['Seriennummer',d.serial],['Kaufdatum',dateLabel(d.date)],['Kaufpreis',d.price?d.price+' €':''],['Händler',d.seller],['Standort',d.place],['Notizen',d.note]];
-  $('deviceDetailContent').innerHTML=`<h3>🔧 ${esc(d.name)}</h3>${rows.filter(r=>r[1]).map(r=>`<p><strong>${r[0]}:</strong> ${esc(r[1])}</p>`).join('')}${docsMarkup('📘 Bedienungsanleitungen',d.manuals||[])}${docsMarkup('🧾 Rechnungen',d.invoices||[])}`;
-  $('editDeviceBtn').onclick=()=>openDevice(id);
+  let x=data.devices.find(a=>a.id===id);
+  if(!x)return;
+  $('deviceDetailContent').innerHTML=`<h3>🔌 ${esc(x.name)}</h3><p>${esc([x.brand,x.model].filter(Boolean).join(' · '))}</p><p>📍 ${esc(x.place||'Kein Standort eingetragen')}</p><p>${esc(x.note||'')}</p>${docsMarkup('📘 Bedienungsanleitungen',Array.isArray(x.docs)?x.docs:[])}<div class="tools noPrint"><button class="mini" onclick="openDevice('${x.id}')">Bearbeiten</button><button class="mini" onclick="window.print()">Drucken</button></div>`;
   show('deviceDetail')
 }
 function deleteDevice(id){
-  let d=data.devices.find(x=>x.id===id);
-  if(confirm('Gerät wirklich löschen?')){
-    data.devices=data.devices.filter(x=>x.id!==id);
-    log('Gerät gelöscht',d?.name||'Gerät');
+  let x=data.devices.find(a=>a.id===id);
+  if(confirm('Gerät löschen?')){
+    data.devices=data.devices.filter(a=>a.id!==id);
+    log('Gerät gelöscht',x?.name||'Gerät');
     save()
   }
 }
 function addShortcut(id){
   let x=data.items.find(a=>a.id===id);
   if(!x)return;
-  if(data.shortcuts.some(s=>s.itemId===id))return alert('Für diesen Gegenstand gibt es bereits einen Schnellzugriff.');
-  let label=prompt('Name für den Schnellzugriff:',x.name);
-  if(label===null)return;
-  label=label.trim()||x.name;
-  let icon=prompt('Emoji oder Symbol:',catIcon(x.cat));
-  if(icon===null)return;
-  data.shortcuts.push({id:crypto.randomUUID(),itemId:id,label,icon:icon.trim()||'📦'});
-  log('Schnellzugriff angelegt',label);
+  if(data.shortcuts.some(s=>s.itemId===id))return alert('Dieser Gegenstand ist bereits im Schnellzugriff.');
+  data.shortcuts.push({id:crypto.randomUUID(),itemId:id});
+  log('Schnellzugriff hinzugefügt',x.name);
   save();
-  alert('Schnellzugriff wurde hinzugefügt.')
-}
-function chooseShortcutItem(){
-  let available=data.items.filter(x=>!data.shortcuts.some(s=>s.itemId===x.id));
-  if(!available.length)return alert(data.items.length?'Alle gespeicherten Gegenstände haben bereits einen Schnellzugriff.':'Speichere zuerst einen Gegenstand.');
-  let choices=available.map((x,i)=>(i+1)+'. '+x.name).join('\n');
-  let answer=prompt('Für welchen Gegenstand soll ein Schnellzugriff angelegt werden?\n'+choices);
-  if(answer===null)return;
-  let index=Number(answer)-1;
-  if(!Number.isInteger(index)||index<0||index>=available.length)return alert('Bitte eine gültige Nummer eingeben.');
-  addShortcut(available[index].id)
+  alert('Zum Schnellzugriff hinzugefügt.')
 }
 function removeShortcut(id){
   let s=data.shortcuts.find(x=>x.id===id);
+  let item=data.items.find(x=>x.id===s?.itemId);
   data.shortcuts=data.shortcuts.filter(x=>x.id!==id);
-  log('Schnellzugriff entfernt',s?.label||'Schnellzugriff');
+  log('Schnellzugriff entfernt',item?.name||'Eintrag');
   save()
 }
-function shortcutMarkup(){
-  return data.shortcuts.length?data.shortcuts.map(s=>{
-    let x=data.items.find(i=>i.id===s.itemId);
-    return x?`<div class="shortcut"><span class="sicon">${esc(s.icon||'📦')}</span><strong>${esc(s.label||x.name)}</strong><button class="mini" onclick="showItem('${x.id}')">Öffnen</button><button class="mini" onclick="removeShortcut('${s.id}')">×</button></div>`:''
-  }).join(''):'<div class="empty">Noch keine Schnellzugriffe angelegt.</div>'
+function renderShortcuts(){
+  let a=data.shortcuts.map(s=>({...s,item:data.items.find(x=>x.id===s.itemId)})).filter(s=>s.item);
+  $('shortcutList').innerHTML=a.length?a.map(s=>`<div class="entry"><div class="emoji">${catIcon(s.item.cat)}</div><div class="details"><h3>${esc(s.item.name)}</h3><p>${esc(s.item.place||'')}</p><div class="tools"><button class="mini" onclick="showItem('${s.item.id}')">Öffnen</button><button class="mini" onclick="removeShortcut('${s.id}')">Entfernen</button></div></div></div>`).join(''):'<div class="empty">Noch keine Schnellzugriffe vorhanden.</div>'
 }
 function renderHistory(){
-  $('historyList').innerHTML=data.history.length?data.history.slice(0,25).map(h=>`<div class="historyline"><strong>${esc(h.action)}</strong><br>${esc(h.what)}<br><span class="note">${new Date(h.date).toLocaleString('de-DE')}</span></div>`).join(''):'<div class="empty">Noch keine Änderungen aufgezeichnet.</div>'
+  $('historyList').innerHTML=data.history.length?data.history.slice().reverse().map(x=>`<div class="entry"><div class="emoji">🕘</div><div class="details"><h3>${esc(x.action)}</h3><p>${esc(x.detail||'')} · ${dateTimeLabel(x.date)}</p></div></div>`).join(''):'<div class="empty">Noch keine Aktivitäten vorhanden.</div>'
 }
-
-/* Überarbeitete Startseiten-Anzeige */
 function render(){
-  let a=data.reminders
-    .filter(x=>!x.done)
-    .sort((x,y)=>actualDate(x)-actualDate(y))
-    .slice(0,4);
-
-  $('upcoming').innerHTML=a.length
-    ?a.map(x=>`<div class="entry">
-      <div class="emoji">🌼</div>
-      <div class="details">
-        <h3>${esc(x.title)}</h3>
-        <p>${dateLabel(x.date)}</p>
-      </div>
-    </div>`).join('')
-    :'<div class="empty">Noch keine anstehenden Aufgaben.</div>';
-
-  $('homeShortcuts').innerHTML=shortcutMarkup();
-  $('shortcutList').innerHTML=shortcutMarkup();
-
   renderItems();
-  renderDevices();
   renderReminders();
-  renderPresets();
+  renderDevices();
+  renderShortcuts();
   renderHistory();
-
-  $('themeBtn').textContent=
-    document.body.classList.contains('dark')
-    ?'Deaktivieren'
-    :'Aktivieren';
+  $('countItems').textContent=data.items.length;
+  $('countReminders').textContent=data.reminders.filter(x=>!x.done).length;
+  $('countDevices').textContent=data.devices.length;
+  $('countShortcuts').textContent=data.shortcuts.length
 }
 function backup(){
-  let a=document.createElement('a'),u=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:'application/json'}));
-  a.href=u;
-  a.download='mein-helfer-sicherung.json';
+  let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  let url=URL.createObjectURL(blob);
+  let a=document.createElement('a');
+  a.href=url;
+  a.download='mers-planer-sicherung.json';
   a.click();
-  setTimeout(()=>URL.revokeObjectURL(u),1000)
+  URL.revokeObjectURL(url);
+  log('Datensicherung erstellt','Backup')
 }
-function restore(e){
-  let f=e.target.files[0];
-  if(!f)return;
-  let r=new FileReader();
-  r.onload=()=>{
+function restore(file){
+  if(!file)return;
+  let reader=new FileReader();
+  reader.onload=()=>{
     try{
-      let v=JSON.parse(r.result);
-      if(!Array.isArray(v.items)||!Array.isArray(v.reminders))throw 0;
-      v.items=v.items.map(x=>({...x,manuals:Array.isArray(x.manuals)?x.manuals:[],invoices:Array.isArray(x.invoices)?x.invoices:[]}));
-      v.devices=Array.isArray(v.devices)?v.devices:[];
-      v.shortcuts=Array.isArray(v.shortcuts)?v.shortcuts:[];
-      v.history=Array.isArray(v.history)?v.history:[];
-      if(confirm('Vorhandene Daten ersetzen?')){
-        data=v;
-        save();
-        alert('Sicherung wiederhergestellt.')
-      }
-    }catch(_){
-      alert('Ungültige Sicherungsdatei.')
+      let d=JSON.parse(reader.result);
+      if(!d||!Array.isArray(d.items)||!Array.isArray(d.reminders))throw new Error();
+      if(!confirm('Vorhandene Daten durch die Sicherung ersetzen?'))return;
+      data={...data,...d};
+      save();
+      alert('Sicherung erfolgreich wiederhergestellt.')
+    }catch(e){
+      alert('Die Datei konnte nicht gelesen werden.')
     }
-    e.target.value=''
   };
-  r.readAsText(f)
+  reader.readAsText(file)
 }
 function toggleTheme(){
   document.body.classList.toggle('dark');
-  localStorage.setItem(THEME_KEY,document.body.classList.contains('dark')?'dark':'light');
-  render()
+  localStorage.setItem('mein-helfer-theme-v1',document.body.classList.contains('dark')?'dark':'light')
 }
-if(localStorage.getItem(THEME_KEY)==='dark')document.body.classList.add('dark');
-if('serviceWorker'in navigator&&location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+if(localStorage.getItem('mein-helfer-theme-v1')==='dark')document.body.classList.add('dark');
+if('serviceWorker' in navigator){
+  window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}))
+}
 render();
-const params=new URLSearchParams(location.search),scanItem=params.get('item');
-if(scanItem)showItem(scanItem);
+let params=new URLSearchParams(location.search);
+let itemParam=params.get('item');
+if(itemParam){
+  showItem(itemParam)
+}
 </script>
 </body>
 </html>
