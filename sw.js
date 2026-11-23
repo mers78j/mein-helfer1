@@ -1,5 +1,4 @@
-
-const CACHE = 'mein-helfer-cache-v8';
+const CACHE = 'mein-helfer-cache-v9';
 
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -35,6 +34,11 @@ self.addEventListener('activate', event => {
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
 
+  // Fremde Domains (z. B. Chefkoch) nicht durch den Planer-Service-Worker
+  // umleiten oder bei Fehlern durch die lokale index.html ersetzen.
+  const requestUrl = new URL(event.request.url);
+  if (requestUrl.origin !== self.location.origin) return;
+
   event.respondWith(
     fetch(event.request)
       .then(response => {
@@ -42,14 +46,22 @@ self.addEventListener('fetch', event => {
           const copy = response.clone();
           caches.open(CACHE).then(cache =>
             cache.put(event.request, copy)
-          );
+          ).catch(() => {});
         }
         return response;
       })
-      .catch(() =>
-        caches.match(event.request).then(cached =>
-          cached || caches.match('./index.html')
-        )
-      )
+      .catch(async () => {
+        const cached = await caches.match(event.request);
+        if (cached) return cached;
+
+        // Nur bei echten Seitenaufrufen auf die App-Startseite zurückfallen.
+        if (event.request.mode === 'navigate') {
+          const fallback = await caches.match('./index.html');
+          if (fallback) return fallback;
+        }
+
+        // Keine fremde oder beliebige Anfrage mit index.html beantworten.
+        return Response.error();
+      })
   );
 });
