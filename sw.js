@@ -1,4 +1,4 @@
-const CACHE = 'mein-helfer-cache-v9';
+CACHE = 'mein-helfer-cache-v9';
 
 self.addEventListener('install', event => {
   event.waitUntil(
@@ -60,8 +60,4 @@ self.addEventListener('fetch', event => {
           if (fallback) return fallback;
         }
 
-        // Keine fremde oder beliebige Anfrage mit index.html beantworten.
-        return Response.error();
-      })
-  );
-});
+        // Keine 
